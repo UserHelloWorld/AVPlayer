@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0418173425C24F250012C1B7 /* PlayerTabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0418173325C24F250012C1B7 /* PlayerTabbarView.swift */; };
 		04D8F70C25C1544800D49833 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8F70B25C1544800D49833 /* AppDelegate.swift */; };
 		04D8F70E25C1544800D49833 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8F70D25C1544800D49833 /* SceneDelegate.swift */; };
 		04D8F71025C1544800D49833 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D8F70F25C1544800D49833 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0418173325C24F250012C1B7 /* PlayerTabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerTabbarView.swift; sourceTree = "<group>"; };
 		04D8F70825C1544800D49833 /* AVPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AVPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04D8F70B25C1544800D49833 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04D8F70D25C1544800D49833 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				04D8F70D25C1544800D49833 /* SceneDelegate.swift */,
 				04D8F70F25C1544800D49833 /* ViewController.swift */,
 				04D8F72525C17B5000D49833 /* PlayerManager.swift */,
+				0418173325C24F250012C1B7 /* PlayerTabbarView.swift */,
 				04D8F71125C1544800D49833 /* Main.storyboard */,
 				04D8F71425C1544B00D49833 /* Assets.xcassets */,
 				04D8F71625C1544B00D49833 /* LaunchScreen.storyboard */,
@@ -142,6 +145,7 @@
 			files = (
 				04D8F72625C17B5000D49833 /* PlayerManager.swift in Sources */,
 				04D8F71025C1544800D49833 /* ViewController.swift in Sources */,
+				0418173425C24F250012C1B7 /* PlayerTabbarView.swift in Sources */,
 				04D8F70C25C1544800D49833 /* AppDelegate.swift in Sources */,
 				04D8F70E25C1544800D49833 /* SceneDelegate.swift in Sources */,
 			);

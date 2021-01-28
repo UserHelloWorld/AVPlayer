@@ -10,11 +10,17 @@ import AVKit
 
 class PlayerManager: NSObject {
     
-     var player: AVPlayer!
+    private var player: AVPlayer!
     
     private var playerItem: AVPlayerItem?
     
     private(set) var playerLayer: AVPlayerLayer!
+    
+    private(set) var isPlaying: Bool = false
+    
+    var totalTimeBlock: ((String)->Void)?
+    
+    var playProgress: ((Double,Double)->Void)?
     
     init(_ url: String) {
         super.init()
@@ -27,6 +33,19 @@ class PlayerManager: NSObject {
         playerItem?.addObserver(self, forKeyPath: "status", options: .new, context: nil)
         playerItem?.addObserver(self, forKeyPath: "loadedTimeRanges", options: .new, context: nil)
         playerLayer = AVPlayerLayer(player: player)
+        player.addPeriodicTimeObserver(forInterval: CMTime(value: 1, timescale: CMTimeScale(NSEC_PER_SEC)), queue: nil) { [weak self](mtime) in
+            guard let playerItem = self?.playerItem else {
+                return
+            }
+            guard let total = self?.getTotalSeconds(playerItem) else {
+                return
+            }
+            
+            let progress =  mtime.seconds / total
+            self?.playProgress?(progress,mtime.seconds)
+            print("播放进度",progress, mtime.seconds)
+
+        }
         
     }
     
@@ -42,7 +61,11 @@ class PlayerManager: NSObject {
             case .readyToPlay:
                 // 总时间 秒数
                 print("准备好播放")
-                
+                let totalTime = getTotalSeconds(playerItem)
+                let min = totalTime / 60
+                let sec = Int(totalTime) % 60
+                let timeStr = String(format: "%02d:%02d", Int(min),sec)
+                totalTimeBlock?(timeStr)
             case .failed:
                 print("播放出错")
             case .unknown:
@@ -58,6 +81,11 @@ class PlayerManager: NSObject {
         }
     }
     
+    func play() {
+        isPlaying ? player.pause() : player.play()
+        isPlaying = !isPlaying
+    }
+   
     /// 获取缓冲进度
     @discardableResult
     private func getBufferProgress() -> TimeInterval {
@@ -81,5 +109,14 @@ class PlayerManager: NSObject {
     @discardableResult
     private func getTotalSeconds(_ playerItem: AVPlayerItem) -> Float64 {
         return CMTimeGetSeconds(playerItem.duration)
+    }
+    
+    
+    func seekToTime(time: Float) {
+        guard let playerItem = playerItem else {
+            return
+        }
+        let pointTime = CMTimeMake(value: Int64(getTotalSeconds(playerItem) * Float64(time) * Float64(player.currentTime().timescale)), timescale: playerItem.currentTime().timescale)
+        playerItem.seek(to: pointTime, completionHandler: nil)
     }
 }
